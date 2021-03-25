@@ -22,3 +22,26 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.notes-page {
+    margin-top: 3rem;
+}
+
+    .notes-page input,
+    .notes-page select,
+    .notes-page textarea {
+        max-width: initial;
+    }
+
+.notes-heading {
+    margin-top: 0rem;
+}
+
+.notes-heading-bar {
+    display: flex;
+    align-items: flex-start;
+}
+
+.notes-heading-bar h2 {
+    margin-right: auto;
+}
