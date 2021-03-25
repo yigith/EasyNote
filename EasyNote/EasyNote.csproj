@@ -173,6 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IdentityHelpers.cs" />
     <Compile Include="Migrations\202103250812123_Initial.cs" />
     <Compile Include="Migrations\202103250812123_Initial.Designer.cs">
       <DependentUpon>202103250812123_Initial.cs</DependentUpon>
