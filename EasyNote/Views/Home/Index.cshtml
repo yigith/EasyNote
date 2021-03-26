@@ -4,7 +4,7 @@
 
 @if (!User.Identity.IsAuthenticated)
 {
-    <div class="jumbotron">
+    <div class="jumbotron" style="margin-top: 3rem">
         <h1>Easy Note</h1>
         <p class="lead">Easy Note is an application where you can keep and view your notes. <br />Please sign in to start using our app!</p>
         <p><a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-lg">Sign In &raquo;</a></p>
@@ -13,4 +13,105 @@
 else
 {
     @Html.Partial("_Notes")
+}
+
+@section scripts {
+    <script>
+        var selectedLink = null;
+
+        function listNotes() {
+            $.ajax({
+                type: "get",
+                url: "@Url.Action("GetNotes", "Notes")",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var note = data[i];
+                        addNote(note);
+                    }
+                    selectFirst();
+                }
+            });
+        }
+
+        function newNote() {
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("PostNote", "Notes")",
+                data: { Title: "New Note", Content: "" },
+                success: function (data) {
+                    addNote(data);
+                    selectFirst();
+                }
+            });
+        }
+
+        function addNote(note) {
+            var a = $("<a/>")
+                .attr("href", "#")
+                .text(note.Title)
+                .addClass("list-group-item");
+            a[0].note = note;
+            a.prependTo("#notes");
+        }
+
+        function selectFirst() {
+            var a = $("#notes > a")[0]; // get first dom element
+            select(a);
+        }
+
+        function select(a) {
+            if (!a) {
+                $("#frmNote").hide();
+                selectedLink = null;
+                return;
+            }
+            $("#frmNote").show();
+            selectedLink = a;
+            $("#notes > a").removeClass("active");
+            $(a).addClass("active");
+            $("#id").val(a.note.Id);
+            $("#title").val(a.note.Title);
+            $("#content").val(a.note.Content);
+        }
+
+        listNotes();
+
+        $("#btnNew").click(function () {
+            newNote();
+        });
+
+        $("#frmNote").submit(function (event) {
+            event.preventDefault();
+            if (!selectedLink) return;
+            var formData = $(this).serialize();
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("UpdateNote", "Notes")",
+                data: formData,
+                success: function (data) {
+                    selectedLink.note = data;
+                    selectedLink.textContent = data.Title;
+                }
+            });
+        });
+
+        $("#btnDelete").click(function () {
+            var selectedIndex = $(selectedLink).index();
+
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("DeleteNote", "Notes")/" + selectedLink.note.Id,
+                success: function (data) {
+                    $(selectedLink).remove();
+                    selectedLink = null;
+                    select($("#notes > a")[selectedIndex] || $("#notes > a").last()[0]);
+                }
+            });
+        });
+
+        $("body").on("click", "#notes > a", function (event) {
+            event.preventDefault();
+            select(this);
+        });
+    </script>
 }

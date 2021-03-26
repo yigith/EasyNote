@@ -2,32 +2,33 @@
     <div class="col-md-3">
         <div class="notes-heading-bar">
             <h2 class="notes-heading">Notes</h2>
-            <button class="btn btn-success">
+            <button class="btn btn-success" id="btnNew">
                 <i class="fas fa-plus"></i>
             </button>
         </div>
-        <div class="list-group">
-            <a href="#" class="list-group-item active">
+        <div class="list-group" id="notes">
+            @*<a href="#" class="list-group-item active">
                 Cras justo odio
             </a>
             <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
             <a href="#" class="list-group-item">Morbi leo risus</a>
             <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-            <a href="#" class="list-group-item">Vestibulum at eros</a>
+            <a href="#" class="list-group-item">Vestibulum at eros</a>*@
         </div>
     </div>
     <div class="col-md-9">
-        <form>
+        <form id="frmNote" method="post" style="display: none">
             @Html.AntiForgeryToken()
+            <input type="hidden" id="id" name="id" />
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Title" />
+                <input id="title" name="title" type="text" class="form-control" placeholder="Title" required maxlength="100" />
             </div>
             <div class="form-group">
-                <textarea class="form-control" placeholder="Your Note" rows="10"></textarea>
+                <textarea id="content" name="content" class="form-control" placeholder="Your Note" rows="10"></textarea>
             </div>
             <div>
-                <button id="btnSave" class="btn btn-primary">Save</button>
-                <button id="btnDelete" class="btn btn-danger">Delete</button>
+                <button type="submit" id="btnSave" class="btn btn-primary">Save</button>
+                <button type="button" id="btnDelete" class="btn btn-danger">Delete</button>
             </div>
         </form>
     </div>
