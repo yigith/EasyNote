@@ -11,15 +11,15 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using EasyNote.Models;
+using EasyNote.Utilities;
 
 namespace EasyNote
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            await EmailUtility.SendEmailAsync(message.Destination, message.Subject, message.Body);
         }
     }
 
