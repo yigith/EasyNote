@@ -18,3 +18,5 @@
 	<add name="DefaultConnection" connectionString="server=***;database=***;user id=***;password=***" providerName="System.Data.SqlClient" />
 </connectionStrings>
 ```
+
+Bu connection string release aşamasında web.config içerisindeki connection strings ile değiştirilir.
