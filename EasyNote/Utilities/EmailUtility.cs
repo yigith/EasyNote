@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -14,6 +15,10 @@ namespace EasyNote.Utilities
         {
             using (var smtp = new SmtpClient())
             {
+                smtp.Credentials = new NetworkCredential(
+                    ConfigurationManager.AppSettings["SmtpUserName"],
+                    ConfigurationManager.AppSettings["SmtpPassword"]
+                );
                 MailMessage message = new MailMessage("easynote@kod.fun", to, subject, body);
                 message.IsBodyHtml = true;
                 await smtp.SendMailAsync(message);
