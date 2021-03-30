@@ -1,0 +1,29 @@
+﻿@model List<ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Dashboard</h2>
+
+<p>If you can see this, you are an Admin User!</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Display Name</th>
+            <th>Note Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.DisplayName</td>
+                <td>@user.Notes.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
