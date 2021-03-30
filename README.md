@@ -19,4 +19,4 @@
 </connectionStrings>
 ```
 
-Bu connection string release aşamasında web.config içerisindeki connection strings ile değiştirilir.
+Not: Bu connection string publish aşamasında web.config içerisindeki connection strings ile otomatik olarak değiştirilir.
